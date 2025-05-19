@@ -1,36 +1,82 @@
-const fridgeItems = [
-    { name: "Coca Cola", price: 2.80 },
-    { name: "Coca Cola Zero", price: 2.80 },
-    { name: "Fanta Orange", price: 2.80 },
-    { name: "Fanta Lemon", price: 2.80 },
-    { name: "Sprite", price: 2.80 },
-    { name: "Vimto", price: 2.80 },
-    { name: "Irn Bru", price: 2.80 },
-    { name: "Diet Irn Bru", price: 2.50 },
-    { name: "Red Bull", price: 2.80 },
-    { name: "Cano Water", price: 2.00 },
-    { name: "Jimmy's Iced Coffee", price: 4.50 }
-];
-
-const pantryItems = [
-    { name: "Nobby's Nuts", price: 2.50 },
-    { name: "Metcalfe's Popcorn", price: 2.50 },
-    { name: "Maltesers Treat Bag", price: 2.50 },
-    { name: "Fruit Pastilles Treat Bag", price: 2.50 },
-    { name: "REAL Crisps", price: 1.00 },
-    { name: "Taylor's Crisps", price: 1.00 },
-    { name: "Skittles Treat Bag", price: 2.50 },
-    { name: "Haribo Treat Bag", price: 2.50 }
-];
-
-function populateItems(items, containerId) {
-    const container = document.getElementById(containerId);
-    items.forEach(item => {
-        const li = document.createElement("li");
-        li.innerHTML = `<img src="assets/icons/asterisk1.svg" alt=""> ${item.name} - £${item.price.toFixed(2)}`;
-        container.appendChild(li);
-    });
+body {
+    font-family: 'NNNouvelleGroteskSTD-Normal', sans-serif;
+    background-color: #fcf2e1;
+    color: #2e2739;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
-populateItems(fridgeItems, "fridge-items");
-populateItems(pantryItems, "pantry-items");
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #2e2739;
+    margin: 0;
+}
+
+header h2 {
+    font-size: 2.5rem;
+    color: #2e2739;
+    margin: 0;
+}
+
+.card {
+    position: relative;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.card-fridge {
+    background-color: #f3895a;
+}
+
+.card-pantry {
+    background-color: #ead2cf;
+}
+
+.card h2 {
+    font-size: 2rem;
+    color: #2e2739;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card li {
+    font-size: 1.25rem;
+    color: #2e2739;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    object-fit: cover;
+    border-radius: 20px;
+}
