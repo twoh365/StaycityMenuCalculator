@@ -1,4 +1,9 @@
-// Fridge Items
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import asterisk1 from "./assets/icons/asterisk1.svg";
+import asterisk3 from "./assets/icons/asterisk3.svg";
+import asterisk5 from "./assets/icons/asterisk5.svg";
+
 const fridgeItems = [
     { name: "Coca Cola", price: 2.80 },
     { name: "Coca Cola Zero", price: 2.80 },
@@ -13,7 +18,6 @@ const fridgeItems = [
     { name: "Jimmy's Iced Coffee", price: 4.50 }
 ];
 
-// Pantry Items
 const pantryItems = [
     { name: "Nobby's Nuts", price: 2.50 },
     { name: "Metcalfe's Popcorn", price: 2.50 },
@@ -25,48 +29,53 @@ const pantryItems = [
     { name: "Haribo Treat Bag", price: 2.50 }
 ];
 
-const fridgeContainer = document.getElementById("fridge-items");
-const pantryContainer = document.getElementById("pantry-items");
-const cartContainer = document.getElementById("cart-items");
-const totalAmount = document.getElementById("total-amount");
-let total = 0;
-
-// Generate Items
-function generateItems(items, container) {
-    items.forEach(item => {
-        const itemElement = document.createElement("li");
-        itemElement.classList.add("menu-item");
-        itemElement.innerHTML = `
-            <span>${item.name}</span>
-            <span>£${item.price.toFixed(2)}</span>
-            <div class="quantity-container">
-                <input type="number" value="1" min="1" max="99">
-                <button onclick="addToCart('${item.name}', ${item.price}, this)">Add</button>
+export default function StaycityMenuCalculator() {
+    return (
+        <div className="flex flex-col items-center bg-[#fcf2e1] min-h-screen p-8">
+            {/* Header Section */}
+            <div className="flex items-center gap-4 mb-8">
+                <h1 className="text-4xl text-[#2e2739] font-bold">staycity</h1>
+                <img src={asterisk5} alt="asterisk" className="w-8 h-8" />
+                <h2 className="text-3xl text-[#2e2739] font-bold">F&B Calculator</h2>
             </div>
-        `;
-        container.appendChild(itemElement);
-    });
+            
+            <div className="flex flex-wrap justify-center items-start gap-8">
+                {/* Fridge Items */}
+                <Card className="relative bg-[#f3895a] rounded-2xl p-6 w-full max-w-lg">
+                    <img src={asterisk3} alt="asterisk" className="absolute inset-0 w-full h-full opacity-20 object-cover rounded-2xl" />
+                    <CardContent>
+                        <h2 className="text-2xl text-[#2e2739] font-bold flex items-center gap-2">
+                            <img src={asterisk3} alt="" className="w-6 h-6" /> Fridge Items:
+                        </h2>
+                        <ul className="mt-4 space-y-4">
+                            {fridgeItems.map((item, index) => (
+                                <li key={index} className="flex items-center gap-2">
+                                    <img src={asterisk1} alt="" className="w-4 h-4" />
+                                    {item.name} - £{item.price.toFixed(2)}
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+    
+                {/* Pantry Items */}
+                <Card className="relative bg-[#ead2cf] rounded-2xl p-6 w-full max-w-lg">
+                    <img src={asterisk3} alt="asterisk" className="absolute inset-0 w-full h-full opacity-20 object-cover rounded-2xl" />
+                    <CardContent>
+                        <h2 className="text-2xl text-[#2e2739] font-bold flex items-center gap-2">
+                            <img src={asterisk3} alt="" className="w-6 h-6" /> Pantry Items:
+                        </h2>
+                        <ul className="mt-4 space-y-4">
+                            {pantryItems.map((item, index) => (
+                                <li key={index} className="flex items-center gap-2">
+                                    <img src={asterisk1} alt="" className="w-4 h-4" />
+                                    {item.name} - £{item.price.toFixed(2)}
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    );
 }
-
-generateItems(fridgeItems, fridgeContainer);
-generateItems(pantryItems, pantryContainer);
-
-// Add to Cart Function
-function addToCart(name, price, button) {
-    const quantity = parseInt(button.previousElementSibling.value);
-    const totalPrice = price * quantity;
-    total += totalPrice;
-    totalAmount.textContent = total.toFixed(2);
-
-    const cartItem = document.createElement("li");
-    cartItem.classList.add("cart-item");
-    cartItem.textContent = `${name} x${quantity} - £${totalPrice.toFixed(2)}`;
-    cartContainer.appendChild(cartItem);
-}
-
-// Clear Cart Function
-document.getElementById("clear-cart").addEventListener("click", () => {
-    total = 0;
-    totalAmount.textContent = total.toFixed(2);
-    cartContainer.innerHTML = "";
-});
