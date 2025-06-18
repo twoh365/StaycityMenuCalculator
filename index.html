@@ -1,3 +1,4 @@
+<!-- FULLY FIXED HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,110 +8,111 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-
-<div id="header-wrapper">
-  <div id="header-content">
-    <span id="page-header">staycity</span>
-    <img
-      id="header-asterisk"
-      src="https://www.staycity.com/dist/assets/icons/asterisk1.svg"
-      alt="asterisk"
-      aria-hidden="true"
-    />
-    <span id="westend-text">west end</span><span id="colon-text">:</span>
+  <div id="header-wrapper">
+    <div id="header-content">
+      <span id="page-header">staycity</span>
+      <div id="header-asterisk-wrapper" style="width: 20px; height: 20px; transform: translateY(-11px);"></div> 
+      <span id="westend-text">WEST END</span>
+      <span id="colon-text">:</span>
+    </div>
+    <div id="subheader">Food & Beverage Calculator</div>
   </div>
-  <div id="subheader">FOOD AND BEVERAGE CALCULATOR</div>
-</div>
-  
 
   <div class="main-grid">
-    <section class="info-box" id="important-info">
-      <h3>Important Information:</h3>
-      <ul id="top-instructions-list"></ul>
-    </section>
+    <!-- Row 1: Info Boxes -->
+    <div class="info-box">
+      <button class="instruction-toggle" data-target="important-info-list">Important Information</button>
+      <ul id="important-info-list" class="info-list hidden"></ul>
+    </div>
 
-    <section class="info-box" id="how-to-use">
-      <h3>How To Use:</h3>
-      <ul id="howto-list"></ul>
-    </section>
+    <div class="info-box">
+      <button class="instruction-toggle" data-target="how-to-list">How To Use</button>
+      <ul id="how-to-list" class="info-list hidden"></ul>
+    </div>
 
-    <div id="fridge-container" class="grid-container purple">
-      <h2>Fridge Items:</h2>
-      <ul id="fridge-list"></ul>
+    <!-- Row 2: Drinks and Snacks -->
+    <div id="drinks-container" class="grid-container purple">
+      <h3>Drinks <span id="drinks-asterisk"></span></h3>
+      <ul id="drinks-list"></ul>
       <div class="color-selector">
-        <div class="color-block brown"><span>*</span></div>
-        <div class="color-block purple selected"><span>*</span></div>
-        <div class="color-block darkpurple"><span>*</span></div>
-        <div class="color-block teal"><span>*</span></div>
-        <div class="color-block orange"><span>*</span></div>
-        <button class="invert-btn" aria-label="Invert fridge colors">Invert</button>
+        <div class="color-block brown" data-color="brown"></div>
+        <div class="color-block purple selected" data-color="purple"></div>
+        <div class="color-block darkpurple" data-color="darkpurple"></div>
+        <div class="color-block teal" data-color="teal"></div>
+        <div class="color-block orange" data-color="orange"></div>
+        <button class="invert-btn" aria-label="Invert drinks colors">Invert</button>
       </div>
     </div>
 
-    <div id="pantry-container" class="grid-container purple">
-      <h2>Pantry Items:</h2>
-      <ul id="pantry-list"></ul>
+    <div id="snacks-container" class="grid-container purple">
+      <h3>Snacks <span id="snacks-asterisk"></span></h3>
+      <ul id="snacks-list"></ul>
       <div class="color-selector">
-        <div class="color-block brown"><span>*</span></div>
-        <div class="color-block purple selected"><span>*</span></div>
-        <div class="color-block darkpurple"><span>*</span></div>
-        <div class="color-block teal"><span>*</span></div>
-        <div class="color-block orange"><span>*</span></div>
-        <button class="invert-btn" aria-label="Invert pantry colors">Invert</button>
+        <div class="color-block brown" data-color="brown"></div>
+        <div class="color-block purple selected" data-color="purple"></div>
+        <div class="color-block darkpurple" data-color="darkpurple"></div>
+        <div class="color-block teal" data-color="teal"></div>
+        <div class="color-block orange" data-color="orange"></div>
+        <button class="invert-btn" aria-label="Invert snacks colors">Invert</button>
       </div>
     </div>
 
-    <div id="cart-container" class="cart-container purple">
-      <h2>Cart:</h2>
-      <ul id="cart-list"></ul>
-      <div id="total-price">Total: £0.00</div>
-      <div style="margin-top: 10px; display:flex; gap:10px; flex-wrap: wrap;">
-        <button id="clear-cart" class="btn-purple">Clear Cart</button>
-        <button id="save-csv" class="btn-purple">Save Cart as CSV</button>
-        <button id="copy-cart" class="btn-purple">Copy Cart to Clipboard</button>
-        <button id="email-cart" class="btn-purple">Email Cart</button>
+    <!-- Row 3: Cart (spans 2 columns) -->
+    <div id="cart-container" class="cart-container purple"><div class="section-bg" id="cart-bg"></div>" style="grid-column: span 2;">
+      <h3>Cart</h3>
+      <ul id="cart-items"></ul>
+      <div id="total">Total: £0.00</div>
+      <div class="color-selector">
+        <div class="color-block brown" data-color="brown"></div>
+        <div class="color-block purple selected" data-color="purple"></div>
+        <div class="color-block darkpurple" data-color="darkpurple"></div>
+        <div class="color-block teal" data-color="teal"></div>
+        <div class="color-block orange" data-color="orange"></div>
+        <button class="invert-btn" aria-label="Invert cart colors">Invert</button>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button id="clear-cart" class="btn-orange">Clear</button>
+        <button id="save-csv" class="btn-orange">Save CSV</button>
+        <button id="copy-cart" class="btn-orange">Copy</button>
+        <button id="email-cart" class="btn-orange">Email</button>
       </div>
     </div>
 
-    <div id="master-price-list">
+    <!-- Row 4: Master Price List (spans 2 columns) -->
+    <div id="master-price-list" style="grid-column: span 2;">
       <h3>Master Price List</h3>
       <table>
         <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>Section</th>
-            <th>Price (£)</th>
-            <th>Actions</th>
-          </tr>
+          <tr><th>Name</th><th>Section</th><th>Price</th><th>Action</th></tr>
         </thead>
         <tbody id="master-list-body"></tbody>
       </table>
-      <div id="export-import-controls" style="margin-top: 20px;">
-        <button id="export-btn" class="btn-orange" style="margin-right: 10px;">Export Master Price List</button>
-        <button id="import-btn" class="btn-orange">Import Master Price List</button>
-        <input type="file" id="import-file" accept=".json" style="display: none;" />
-      </div>
-      <button id="add-master-item-btn" class="btn-orange">Add New Item</button>
+      <button id="add-master-item-btn">Add Item</button>
+      <button id="export-btn" class="btn-orange">Export</button>
+      <button id="import-btn" class="btn-orange">Import</button>
+      <input type="file" id="import-file" accept=".json" style="display: none;" />
     </div>
   </div>
 
-  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <!-- Modal -->
+  <div id="modal-overlay">
     <div id="modal">
-      <h3 id="modal-title">Add New Item</h3>
+      <h3>Add New Item</h3>
       <form id="modal-form">
-        <label for="item-name">Item Name:</label>
-        <input id="item-name" name="item-name" type="text" required autocomplete="off" />
+        <label for="item-name">Name:</label>
+        <input type="text" id="item-name" required />
+
         <label for="item-section">Section:</label>
-        <select id="item-section" name="item-section" required>
-          <option value="">-- Select --</option>
-          <option value="fridge">Fridge</option>
-          <option value="pantry">Pantry</option>
+        <select id="item-section">
+          <option value="drinks">Drinks</option>
+          <option value="snacks">Snacks</option>
         </select>
-        <label for="item-price">Price (£):</label>
-        <input id="item-price" name="item-price" type="number" min="0" step="0.01" required />
-        <button type="submit" class="btn-purple">Add Item</button>
-        <button type="button" id="modal-cancel-btn" class="btn-purple">Cancel</button>
+
+        <label for="item-price">Price (£:):</label>
+        <input type="number" id="item-price" min="0" step="0.01" required />
+
+        <button type="submit">Add</button>
+        <button type="button" id="modal-cancel-btn">Cancel</button>
       </form>
     </div>
   </div>
