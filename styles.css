@@ -1,5 +1,4 @@
-
-@font-face {
+ @font-face {
   font-family: 'NNNouvelleGroteskSTD-Normal';
   src: url('./dist/assets/fonts/nouvelle/NNNouvelleGroteskSTD-Normal.woff2') format('woff2'),
        url('./dist/assets/fonts/nouvelle/NNNouvelleGroteskSTD-Normal.woff') format('woff');
@@ -62,11 +61,25 @@ body {
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 15px 20px;
-  max-width: 900px;
-  border-radius: 8px;
+  grid-auto-rows: minmax(100px, auto);
+  gap: 20px;
+  max-width: 1200px;
   margin: 0 auto 40px;
+  padding: 0 20px;
+  align-items: stretch; /* Ensure grid items stretch to fill row height */
+}
+
+.instruction-toggle {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #6E6982;
+  background: #D8BEBC;
+  color: #6E6982;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .info-box,
@@ -78,7 +91,41 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+.info-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
 
+.info-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.info-list svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.hidden {
+  display: none;
+} 
+
+.section-bg svg {
+  position: absolute;
+  right: -110px;   /* Move further right */
+  bottom: -100px; /* Move further down */
+  left: auto;
+  width: 400px;   /* Much bigger */
+  height: 500px;  /* Much bigger */
+  opacity: 0.08; /* Lower opacity for a more subtle effect */
+    transform: rotate(10deg);
+  pointer-events: none;
+  z-index: 1;
+}
 
 #master-price-list {
   grid-column: span 2;
@@ -125,6 +172,18 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 320px;
+  position: relative;
+  overflow: hidden;
+  outline: 4px solid #000000; /* Add a visible outline around cards */
+  height: 100%; /* Make containers stretch to fill grid cell */
+  box-sizing: border-box;
+  transition: transform 0.18s cubic-bezier(0.33,1,0.68,1), box-shadow 0.18s cubic-bezier(0.33,1,0.68,1);
+  animation: popIn 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.grid-container:hover,
+.cart-container:hover {
+  transform: scale(1.025);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
 }
 .cart-container {
   grid-column: span 2;
@@ -250,7 +309,7 @@ button {
   height: 28px;
   border-radius: 5px;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -409,4 +468,35 @@ button {
 }
 #modal button:hover {
   background: #415a66;
+}
+
+
+
+.info-box {
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
