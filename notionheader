@@ -1,4 +1,4 @@
-<!-- FULLY FIXED HTML -->
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!-- FULLY FIXED HTML -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,7 +28,7 @@
   </body>
 </html>
 
-/* CSS Navigation guide: 
+<style>/* CSS Navigation guide: 
 ~Section Number - Title  [Related Javascript Section]~
 Section 1 - Page Setup [N/A]
 Section 2 - Header and Subheader [Section 2 - Inline SVGs; Section 3 - Animations]
@@ -136,8 +136,7 @@ margin-top: 0px;
 /* Start of Section 3 - "How to Use" and "Important Information" Toggle Butto */
 /*==================================*/
 
-
-// =========================
+</style><script>// =========================
 // SECTION 1 -- COLOUR THEME OPTIONS
 // =========================
 
@@ -223,5 +222,4 @@ animateSubHeaderAsterisk(); // Show first asterisk immediately //
 setInterval(animateSubHeaderAsterisk, 800); // Rotate every 500ms //
 
 });
-	
-
+</script>
