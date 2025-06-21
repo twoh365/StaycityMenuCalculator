@@ -1,10 +1,10 @@
- @font-face {
-  font-family: 'NNNouvelleGroteskSTD-Normal';
-  src: url('https://github.com/twoh365/StaycityMenuCalculator/blob/main/dist/assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff2'),
-       url('./dist/assets/fonts/nouvelle/NNNouvelleGroteskSTD-Normal.woff') format('woff');
+@font-face {
+  font-family: 'NNNouvelleGroteskSTD';
+  src: url('../assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
+
 body {
   font-family: 'NNNouvelleGroteskSTD-Normal', sans-serif;
   background: #f5efe6;
