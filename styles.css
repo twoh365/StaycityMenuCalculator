@@ -1,5 +1,5 @@
 :root {
-  --font-main: "NNNouvelleGroteskSTD-Normal", sans-serif;
+  --font-main: "NNNouvelleGroteskSTD", sans-serif;
   --color-bg: #f5efe6;
   --color-text: #2e283f;
   --color-accent: #f39063;
@@ -13,6 +13,7 @@
   --radius: 10px;
   --transition: 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
+
 
 
 @font-face {
