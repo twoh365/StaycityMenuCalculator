@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Staycity F&B Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-grid">
+      <!-- Row 1: Drinks and Snacks -->
+      <div id="drinks-container" class="grid-container purple">
+        <h3>Drinks <span id="drinks-asterisk"></span></h3>
+        <ul id="drinks-list"></ul>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert drinks colors">
+            INVERT THEME
+          </button>
+        </div>
+      </div>
+
+      <div id="snacks-container" class="grid-container purple">
+        <h3>Snacks <span id="snacks-asterisk"></span></h3>
+        <ul id="snacks-list"></ul>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert snacks colors">INVERT THEME</button>
+        </div>
+      </div>
+
+      <!-- Row 3: Cart (spans 2 columns) -->
+      <div id="cart-container" class="cart-container purple">
+        <div class="section-bg" id="cart-bg"></div>
+        <h3 class="cart-title"><span class="cart-label">Cart</span> <span id="cart-asterisk" class="title-asterisk"></span></h3>
+        <ul id="cart-items"></ul>
+        <div id="total">Total: £0.00</div>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert cart colors">INVERT THEME</button>
+          <button id="clear-cart" class="invert-btn">Clear Cart</button>
+      </div>
+    <script src="script.js"></script>
+  </body>
+</html>
