@@ -18,7 +18,7 @@
 
 @font-face {
   font-family: 'NNNouvelleGroteskSTD';
-  src: url('../assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff');
+  src: url('dist/assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
