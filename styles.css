@@ -1,5 +1,5 @@
 :root {
-  --font-main: 'NNNouvelleGroteskSTD-Normal', sans-serif;
+  --font-main: "NNNouvelleGroteskSTD-Normal", sans-serif;
   --color-bg: #f5efe6;
   --color-text: #2e283f;
   --color-accent: #f39063;
@@ -14,17 +14,16 @@
   --transition: 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-
-
 @font-face {
-  font-family: 'NNNouvelleGroteskSTD-Normal';
-  src: url('../assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff');
+  font-family: "NNNouvelleGroteskSTD-Normal";
+  src: url("./dist/assets/fonts/NNNouvelleGroteskSTD-Normal.woff2") format("woff2"),
+    url("./dist/assets/fonts/NNNouvelleGroteskSTD-Normal.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'NNNouvelleGroteskSTD-Normal', sans-serif;
+  font-family: var(--font-main);
   background: var(--color-bg);
   margin: 0;
   padding: 20px;
