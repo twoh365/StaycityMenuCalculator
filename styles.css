@@ -1,5 +1,5 @@
 :root {
-  --font-main: 'NNNouvelleGroteskSTD', sans-serif;
+  --font-main: 'NNNouvelleGroteskSTD-Normal', sans-serif;
   --color-bg: #f5efe6;
   --color-text: #2e283f;
   --color-accent: #f39063;
@@ -17,7 +17,7 @@
 
 
 @font-face {
-  font-family: 'NNNouvelleGroteskSTD';
+  font-family: 'NNNouvelleGroteskSTD-Normal';
   src: url('../assets/fonts/NNNouvelleGroteskSTD-Normal.woff') format('woff');
   font-weight: normal;
   font-style: normal;
