@@ -23,8 +23,8 @@
   font-style: normal;
 }
 
+
 body {
-  font-family: var(--font-main);
   background: var(--color-bg);
   margin: 0;
   padding: 20px;
