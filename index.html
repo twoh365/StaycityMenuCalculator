@@ -1,192 +1,57 @@
-<!-- FULLY FIXED HTML -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Staycity F&B Calculator</title>
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<div id="header-wrapper">
-  <div id="page-header" aria-label="Staycity">
-    staycity
-    <img id="header-asterisk" src="dist/assets/icons/asterisk1.svg" alt="asterisk" aria-hidden="true" />
-    <span id="westend-text">west end</span><span id="colon-text">:</span>
-  </div>
-  <div id="subheader">FOOD AND BEVERAGE CALCULATOR</div>
-</div>
-<div class="main-grid">
-  <div id="info-container" class="grid-container purple">
-    <h2>Important Information:</h2>
-    <ul id="top-instructions-list"></ul>
-    <div class="color-selector">
-      <div class="color-block brown"><span>*</span></div>
-      <div class="color-block purple selected"><span>*</span></div>
-      <div class="color-block darkpurple"><span>*</span></div>
-      <div class="color-block teal"><span>*</span></div>
-      <div class="color-block orange"><span>*</span></div>
-      <button class="invert-btn" aria-label="Invert info colors">Invert</button>
-    </div>
-  </div>
-  <div id="howto-container" class="grid-container purple">
-    <h2>How To Use:</h2>
-    <ul id="howto-list"></ul>
-    <div class="color-selector">
-      <div class="color-block brown"><span>*</span></div>
-      <div class="color-block purple selected"><span>*</span></div>
-      <div class="color-block darkpurple"><span>*</span></div>
-      <div class="color-block teal"><span>*</span></div>
-      <div class="color-block orange"><span>*</span></div>
-      <button class="invert-btn" aria-label="Invert howto colors">Invert</button>
-    </div>
-  </div>
-  <div id="fridge-container" class="grid-container purple">
-    <h2>Fridge Items:</h2>
-    <ul id="fridge-list"></ul>
-    <div class="color-selector">
-      <div class="color-block brown"><span>*</span></div>
-      <div class="color-block purple selected"><span>*</span></div>
-      <div class="color-block darkpurple"><span>*</span></div>
-      <div class="color-block teal"><span>*</span></div>
-      <div class="color-block orange"><span>*</span></div>
-      <button class="invert-btn" aria-label="Invert fridge colors">Invert</button>
-    </div>
-  </div>
-  <div id="pantry-container" class="grid-container purple">
-    <h2>Pantry Items:</h2>
-    <ul id="pantry-list"></ul>
-    <div class="color-selector">
-      <div class="color-block brown"><span>*</span></div>
-      <div class="color-block purple selected"><span>*</span></div>
-      <div class="color-block darkpurple"><span>*</span></div>
-      <div class="color-block teal"><span>*</span></div>
-      <div class="color-block orange"><span>*</span></div>
-      <button class="invert-btn" aria-label="Invert pantry colors">Invert</button>
-    </div>
-  </div>
-  <div id="cart-container" class="cart-container purple">
-    <h2>Cart:</h2>
-    <ul id="cart-list"></ul>
-    <div id="total-price">Total: £0.00</div>
-    <div style="margin-top: 10px; display:flex; gap:10px; flex-wrap: wrap;">
-      <button id="clear-cart" class="btn-purple">Clear Cart</button>
-      <button id="save-csv" class="btn-purple">Save Cart as CSV</button>
-      <button id="copy-cart" class="btn-purple">Copy Cart to Clipboard</button>
-      <button id="email-cart" class="btn-purple">Email Cart</button>
-    </div>
-  </div>
-</div>
-<script src="script.js"></script>
-  <div id="header-wrapper">
-    <div id="header-content">
-      <span id="page-header">staycity</span>
-      <div id="header-asterisk-wrapper" style="width: 20px; height: 20px; transform: translateY(-11px);"></div> 
-      <span id="westend-text">WEST END</span>
-      <span id="colon-text">:</span>
-    </div>
-    <div id="subheader">Food & Beverage Calculator</div>
-  </div>
-
-  <div class="main-grid">
-    <!-- Row 1: Info Boxes -->
-    <div class="info-box">
-      <button class="instruction-toggle" data-target="important-info-list">Important Information</button>
-      <ul id="important-info-list" class="info-list hidden"></ul>
-    </div>
-
-    <div class="info-box">
-      <button class="instruction-toggle" data-target="how-to-list">How To Use</button>
-      <ul id="how-to-list" class="info-list hidden"></ul>
-    </div>
-
-    <!-- Row 2: Drinks and Snacks -->
-    <div id="drinks-container" class="grid-container purple">
-      <h3>Drinks <span id="drinks-asterisk"></span></h3>
-      <ul id="drinks-list"></ul>
-      <div class="color-selector">
-        <div class="color-block brown" data-color="brown"></div>
-        <div class="color-block purple selected" data-color="purple"></div>
-        <div class="color-block darkpurple" data-color="darkpurple"></div>
-        <div class="color-block teal" data-color="teal"></div>
-        <div class="color-block orange" data-color="orange"></div>
-        <button class="invert-btn" aria-label="Invert drinks colors">Invert</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Staycity F&B Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-grid">
+      <!-- Row 1: Drinks and Snacks -->
+      <div id="drinks-container" class="grid-container purple">
+        <h3>Drinks <span id="drinks-asterisk"></span></h3>
+        <ul id="drinks-list"></ul>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert drinks colors">
+            INVERT THEME
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div id="snacks-container" class="grid-container purple">
-      <h3>Snacks <span id="snacks-asterisk"></span></h3>
-      <ul id="snacks-list"></ul>
-      <div class="color-selector">
-        <div class="color-block brown" data-color="brown"></div>
-        <div class="color-block purple selected" data-color="purple"></div>
-        <div class="color-block darkpurple" data-color="darkpurple"></div>
-        <div class="color-block teal" data-color="teal"></div>
-        <div class="color-block orange" data-color="orange"></div>
-        <button class="invert-btn" aria-label="Invert snacks colors">Invert</button>
+      <div id="snacks-container" class="grid-container purple">
+        <h3>Snacks <span id="snacks-asterisk"></span></h3>
+        <ul id="snacks-list"></ul>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert snacks colors">INVERT THEME</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Row 3: Cart (spans 2 columns) -->
-    <div id="cart-container" class="cart-container purple"><div class="section-bg" id="cart-bg"></div>
-      <h3>Cart</h3>
-      <ul id="cart-items"></ul>
-      <div id="total">Total: £0.00</div>
-      <div class="color-selector">
-        <div class="color-block brown" data-color="brown"></div>
-        <div class="color-block purple selected" data-color="purple"></div>
-        <div class="color-block darkpurple" data-color="darkpurple"></div>
-        <div class="color-block teal" data-color="teal"></div>
-        <div class="color-block orange" data-color="orange"></div>
-        <button class="invert-btn" aria-label="Invert cart colors">Invert</button>
+      <!-- Row 3: Cart (spans 2 columns) -->
+      <div id="cart-container" class="cart-container purple">
+        <div class="section-bg" id="cart-bg"></div>
+        <h3 class="cart-title"><span class="cart-label">Cart</span> <span id="cart-asterisk" class="title-asterisk"></span></h3>
+        <ul id="cart-items"></ul>
+        <div id="total">Total: £0.00</div>
+        <div class="color-selector">
+          <div class="color-block brown" data-color="brown"></div>
+          <div class="color-block purple selected" data-color="purple"></div>
+          <div class="color-block darkpurple" data-color="darkpurple"></div>
+          <div class="color-block teal" data-color="teal"></div>
+          <div class="color-block orange" data-color="orange"></div>
+          <button class="invert-btn" aria-label="Invert cart colors">INVERT THEME</button>
+          <button id="clear-cart" class="invert-btn">Clear Cart</button>
       </div>
-      <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button id="clear-cart" class="btn-orange">Clear</button>
-        <button id="save-csv" class="btn-orange">Save CSV</button>
-        <button id="copy-cart" class="btn-orange">Copy</button>
-        <button id="email-cart" class="btn-orange">Email</button>
-      </div>
-    </div>
-
-    <!-- Row 4: Master Price List (spans 2 columns) -->
-    <div id="master-price-list" style="grid-column: span 2;">
-      <h3>Master Price List</h3>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>Section</th><th>Price</th><th>Action</th></tr>
-        </thead>
-        <tbody id="master-list-body"></tbody>
-      </table>
-      <button id="add-master-item-btn">Add Item</button>
-      <button id="export-btn" class="btn-orange">Export</button>
-      <button id="import-btn" class="btn-orange">Import</button>
-      <input type="file" id="import-file" accept=".json" style="display: none;" />
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div id="modal-overlay">
-    <div id="modal">
-      <h3>Add New Item</h3>
-      <form id="modal-form">
-        <label for="item-name">Name:</label>
-        <input type="text" id="item-name" required />
-
-        <label for="item-section">Section:</label>
-        <select id="item-section">
-          <option value="drinks">Drinks</option>
-          <option value="snacks">Snacks</option>
-        </select>
-
-        <label for="item-price">Price (£:):</label>
-        <input type="number" id="item-price" min="0" step="0.01" required />
-
-        <button type="submit">Add</button>
-        <button type="button" id="modal-cancel-btn">Cancel</button>
-      </form>
-    </div>
-  </div>
-<a href="notionheader.html" title="NotionHeader" Notion Header</a>
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
