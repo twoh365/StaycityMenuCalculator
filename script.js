@@ -1,5 +1,5 @@
 // =========================
-// SECTION 1 — COLOUR PALETTE DEFINITIONS
+// SECTION 1 -- COLOUR PALETTE DEFINITIONS
 // =========================
 
 // These are the official colour themes available for use in the calculator.
@@ -65,7 +65,19 @@ function getRandomAsteriskSVG(color = "black") {
   return svg;
 }
 
-// Wrap all asterisk injections and toggle logic in DOMContentLoaded, and ensure header/section asterisks are injected on load. This guarantees asterisks and toggles work as intended.
+function handleColorBlockSelection(container, selectedColor) {
+  const blocks = container.querySelectorAll('.color-block');
+  blocks.forEach(block => {
+    if (block.classList.contains(selectedColor)) {
+      block.classList.add('selected');
+    } else {
+      block.classList.remove('selected');
+    }
+  });
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   // Ensure asterisks are injected into header and section asterisk spans
   function injectHeaderAndSectionAsterisks() {
@@ -91,21 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  injectHeaderAndSectionAsterisks();
-
-  // Ensure toggles work
-  document.querySelectorAll(".instruction-toggle").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      var target = document.getElementById(btn.dataset.target);
-      if (target) target.classList.toggle("hidden");
-    });
-  });
-
-  // Ensure instructions are populated
-  if (typeof populateInstructions === 'function') {
-    populateInstructions();
-  }
-
   // Ensure items are rendered
   if (typeof renderItems === 'function') {
     renderItems();
@@ -123,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // =========================
-// SECTION 1.5 — ITEMS ARRAY (MOVED TO TOP FOR DEPENDENCY ORDER)
+// SECTION 1.5 -- ITEMS ARRAY (MOVED TO TOP FOR DEPENDENCY ORDER)
 // =========================
 
 const items = [
@@ -294,7 +291,7 @@ const ASTERISK_PATHS = [
 ];
 
 // =========================
-// SECTION 8 — INITIAL ASTERISK INJECTION
+// SECTION 8 -- INITIAL ASTERISK INJECTION
 // =========================
 
 // Inserts randomly styled SVG asterisks into all color blocks (theme-aware) //
@@ -340,7 +337,7 @@ document.querySelectorAll(".asterisk-bullet").forEach((span) => {
 injectAsterisksIntoColorBlocks();
 
 // =========================
-// SECTION 9 — COLOR BLOCK ASTERISK GENERATORS
+// SECTION 9 -- COLOR BLOCK ASTERISK GENERATORS
 // =========================
 
 // Uses <use> tag and inline <svg> referencing ID-based asterisks //
@@ -599,28 +596,107 @@ document.getElementById("clear-cart").addEventListener("click", function() {
 // Background SVG injection
 // ===============
 
-function injectSectionBackground(sectionId) {
+function injectSectionBackground(sectionId, indexOverride = null) {
   var bgDiv = document.getElementById(sectionId + '-bg');
   if (!bgDiv) return;
 
-  var allowedIndices = [3]; // asterisks 3, 4, and 6
-  var index = allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
-  var wrapper = document.createElement('div');
+  const allowedIndices = [1, 2, 3, 4, 5, 6];
+  const index = indexOverride !== null ? indexOverride :
+    allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
+
+  const wrapper = document.createElement('div');
   wrapper.innerHTML = asteriskSVGs[index];
 
-  var svg = wrapper.querySelector('svg');
+  const svg = wrapper.querySelector('svg');
   if (svg) {
+    svg.classList.add(`bg-asterisk`, `bg-asterisk-${sectionId}`);
     svg.style.fill = 'currentColor';
     svg.style.opacity = '0.2';
-    // Removed width, height, and transform so CSS can control position/size
     bgDiv.innerHTML = '';
     bgDiv.appendChild(svg);
   }
 }
 
 function applyBackgroundsToAllSections() {
-  ["drinks", "snacks", "cart"].forEach(injectSectionBackground);
+  // Generate shared asterisk index for drinks and snacks
+  const allowedIndices = [1, 2, 3, 4, 5, 6];
+  const sharedIndex = allowedIndices[Math.floor(Math.random() * allowedIndices.length)];
+
+  injectSectionBackground("drinks", sharedIndex);
+  injectSectionBackground("snacks", sharedIndex);
+  injectSectionBackground("cart"); // Random, independent
 }
 
 // Call on page load
 applyBackgroundsToAllSections();
+
+
+// =========================
+// SECTION 13 -- INITIALIZATION
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Inject asterisks into header titles
+  ["drinks-asterisk", "snacks-asterisk", "cart-asterisk"].forEach(id => {
+    const span = document.getElementById(id);
+    if (span) {
+      const rand = Math.floor(Math.random() * asteriskSVGs.length);
+      span.innerHTML = asteriskSVGs[rand];
+    }
+  });
+
+  // Inject background asterisks
+  applyBackgroundsToAllSections();
+
+  // Render items into drinks and snacks
+  renderItems();
+
+  // Apply asterisks to color blocks
+  regenerateColorBlockAsterisks();
+
+  // Set up color selection behavior
+  setupColorSelectorListeners();
+
+  // Setup cart action button behavior
+  setupCartButtonListeners();
+});
+
+// =========================
+// SECTION 13.1 -- CART ACTION BUTTON SETUP
+// =========================
+
+function setupCartButtonListeners() {
+  document.getElementById("clear-cart")?.addEventListener("click", () => {
+    cart = [];
+    renderCart();
+  });
+
+  document.querySelectorAll(".invert-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      const container = button.closest(".grid-container, .cart-container");
+      if (!container) return;
+
+      const currentClass = [...container.classList].find(cls =>
+        COLOURS.some(c => c.name === cls)
+      );
+      if (!currentClass) return;
+
+      const isInverted = currentClass.endsWith("-inverted");
+      const baseName = isInverted ? currentClass.replace("-inverted", "") : currentClass;
+      const newTheme = isInverted ? baseName : `${baseName}-inverted`;
+
+      container.classList.remove(...COLOURS.map(c => c.name));
+      container.classList.add(newTheme);
+
+      // Update invert button preview
+      const preview = COLOURS.find(c => c.name === (isInverted ? baseName + "-inverted" : baseName));
+      if (preview) {
+        button.style.backgroundColor = preview.bg;
+        button.style.color = preview.text;
+      }
+
+      regenerateColorBlockAsterisks();
+      updateCartActionButtonColors();
+    });
+  });
+}
