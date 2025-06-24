@@ -624,7 +624,7 @@ function applyBackgroundsToAllSections() {
 
   injectSectionBackground("drinks", sharedIndex);
   injectSectionBackground("snacks", sharedIndex);
-  injectSectionBackground("cart"); // Random, independent
+  injectSectionBackground("cart", sharedIndex);
 }
 
 // Call on page load
@@ -696,7 +696,35 @@ function setupCartButtonListeners() {
       }
 
       regenerateColorBlockAsterisks();
-      updateCartActionButtonColors();
     });
   });
+}
+
+
+function renderItemList(listId, itemsArray, sectionId) {
+  const list = document.getElementById(listId);
+  list.innerHTML = "";
+
+  const section = document.getElementById(sectionId);
+  const currentTheme = getThemeFromClass(section);
+  const buttonClass = `${currentTheme}-inverted`;
+
+  itemsArray.forEach(item => {
+    const li = document.createElement("li");
+
+    const button = document.createElement("button");
+    button.textContent = `${item.name} - £${item.price.toFixed(2)}`;
+    button.className = `item-button ${buttonClass}`;
+    button.onclick = () => addToCart(item);
+
+    li.appendChild(button);
+    list.appendChild(li);
+  });
+}
+
+function getThemeFromClass(section) {
+  const classes = section.className.split(" ");
+  return classes.find(cls =>
+    ["brown", "purple", "darkpurple", "teal", "orange"].includes(cls.replace("-inverted", ""))
+  )?.replace("-inverted", "") || "purple";
 }
