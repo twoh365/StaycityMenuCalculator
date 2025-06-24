@@ -30,6 +30,9 @@ body {
   color: var(--color-text);
 }
 
+/*=====================*/
+/* Section Layout Grid */
+/*=====================*/
 .main-grid {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
@@ -40,7 +43,66 @@ body {
   align-items: stretch;
 }
 
-.grid-container, .cart-container {
+.hidden {
+  display: none;
+}
+
+/*=====================*/
+/* Section Background Asterisks */
+/*=====================*/
+
+@keyframes rotateAsterisk {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.bg-asterisk-snacks, 
+.bg-asterisk-cart,
+.bg-asterisk-drinks {
+  animation: rotateAsterisk 20s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotateAsterisk {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.bg-asterisk {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.2;
+  fill: currentColor;
+}
+
+.bg-asterisk-drinks {
+  width: 400px;
+  height: 370px;
+  top: 270px;
+  left: 135px;
+}
+
+.bg-asterisk-snacks {
+  width: 400px;
+  height: 370px;
+  top: 270px;
+  left: -215px;
+}
+
+.bg-asterisk-cart {
+  width: 400px;
+  height: 370px;
+  top: -200px;
+  left: 130px;
+}
+
+/*=====================*/
+/* Section Card Styling */
+/*=====================*/
+.grid-container,
+.cart-container {
   background: var(--bg-color, var(--color-card-bg));
   color: var(--text-color, var(--color-text));
   padding: 20px;
@@ -59,13 +121,19 @@ body {
   min-width: 0;
 }
 
-.grid-container:hover, .cart-container:hover {
+.grid-container:hover,
+.cart-container:hover {
   transform: scale(1.025);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
-.cart-container { grid-column: span 2; }
+.cart-container {
+  grid-column: span 2;
+}
 
+/*=====================*/
+/* Lists and Items */
+/*=====================*/
 ul {
   list-style: none;
   padding: 0;
@@ -88,12 +156,16 @@ li {
   flex-shrink: 0;
 }
 
-#total {
+#total-price {
   font-size: 1.2rem;
-  margin-bottom: 20px;  
+  margin-bottom: 20px;
 }
 
-button, #modal button {
+/*=====================*/
+/* Buttons and Controls */
+/*=====================*/
+button,
+#modal button {
   font-family: var(--font-main);
   font-weight: 600;
   border-radius: 8px;
@@ -102,69 +174,6 @@ button, #modal button {
   cursor: pointer;
   transition: background-color var(--transition);
   user-select: none;
-}
-
-.cart-qty-btn {
-  font-size: 20px;
-  font-family: var(--font-main);  
-  font-weight: bold;
-  border: 2px solid #000;
-  margin: 0 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 30px;
-  height: 28px;
-  min-height: 28px;
-  max-height: 28px;
-}
-
-.invert-btn {
-  box-shadow: none;
-  height: 34px;
-  min-height: 28px;
-  max-height: 36px;
-  padding: 0 8px;
-  margin-left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  white-space: normal;
-  text-align: center;
-  line-height: 1;
-  border-width: 3px;  
-  border: 3px solid #000;
-  background: transparent;
-  color: currentColor;
-  transition: all 0.2s ease;
-}
-
-.invert-btn:hover {
-  background: currentColor;
-  color: var(--color-card-bg);
-}
-
-.grid-container h3, .cart-container h3 {
-  font-size: 2rem;
-  font-weight: 300;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0;
-  border: none;
-  background: none;
-  border-radius: 0;
-  text-align: center;
-  color: var(--text-color, #2e283f);
-  letter-spacing: 0.5px;
-}
-
-#drinks-asterisk, #snacks-asterisk, #cart-asterisk {
-  display: inline-block;
-  position: relative;
-  left: -7px;
-  top: -8px;
-  margin-left: 0;
-  vertical-align: top;
 }
 
 .color-selector {
@@ -177,8 +186,6 @@ button, #modal button {
 .color-block {
   width: 28px;
   height: 28px;
-  min-height: 28px;
-  max-height: 28px;
   border: 3px solid #000 !important;
   font-size: 15px;
   cursor: pointer;
@@ -188,57 +195,133 @@ button, #modal button {
   justify-content: center;
   transition: border-color var(--transition);
   flex-shrink: 1;
-  min-width: 0;
   box-shadow: none;
   opacity: 0.85;
+  z-index: 2;
+  color: var(--text-color); /* fallback for currentColor */
 }
 
 .color-block.selected {
   border-color: #000 !important;
   opacity: 1;
+  outline: 2px solid currentColor;
 }
 
-.section-bg svg {
-  position: absolute;
-  right: -100px;
-  bottom: -100px;
-  width: 400px;
-  height: 500px;
-  opacity: 0.08;
-  transform: rotate(10deg);
-  pointer-events: none;
-  z-index: 1;
+.invert-btn {
+  border: 3px solid #000 !important;
+  box-shadow: none;
+  height: 34px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 11px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1;
 }
 
+/*=====================*/
+/* Theme Button Colors */
+/*=====================*/
+.btn-brown { background: #cac0a9; color: #a15644; }
+.btn-brown:hover { background: #b3a894; }
 
-.bg-asterisk {
-  position: absolute;
-  right: -100px;
-  bottom: -100px;
-  width: 400px;
-  height: 500px;
-  opacity: 0.08;
-  transform: rotate(10deg);
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.5s ease-in-out;
-}
+.btn-purple { background: #d8bebc; color: #6e6982; }
+.btn-purple:hover { background: #c7aeb0; }
 
+.btn-darkpurple { background: #e0c4bf; color: #2e283f; }
+.btn-darkpurple:hover { background: #d1b3af; }
 
+.btn-teal { background: #ecac5d; color: #556f7c; }
+.btn-teal:hover { background: #e1a353; }
 
-.color-block.brown { background: #a15644; --text-color: #cac0a9; }
-.color-block.purple { background: #6e6982; --text-color: #d8bebc; }
-.color-block.darkpurple { background: #2e283f; --text-color: #e0c4bf; }
-.color-block.teal { background: #556f7c; --text-color: #ecac5d; }
-.color-block.orange { background: #f39063; --text-color: black; }
+.btn-orange { background: black; color: #f39063; }
+.btn-orange:hover { background: #222; }
 
+/*=====================*/
+/* Theme Variables */
+/*=====================*/
 .brown { --bg-color: #a15644; --text-color: #cac0a9; }
 .brown-inverted { --bg-color: #cac0a9; --text-color: #a15644; }
+
 .purple { --bg-color: #6e6982; --text-color: #d8bebc; }
 .purple-inverted { --bg-color: #d8bebc; --text-color: #6e6982; }
+
 .darkpurple { --bg-color: #2e283f; --text-color: #e0c4bf; }
 .darkpurple-inverted { --bg-color: #e0c4bf; --text-color: #2e283f; }
+
 .teal { --bg-color: #556f7c; --text-color: #ecac5d; }
-teal-inverted { --bg-color: #ecac5d; --text-color: #556f7c; }
+.teal-inverted { --bg-color: #ecac5d; --text-color: #556f7c; }
+
 .orange { --bg-color: #f39063; --text-color: black; }
 .orange-inverted { --bg-color: black; --text-color: #f39063; }
+
+/*=====================*/
+/* Section Titles with Asterisk */
+/*=====================*/
+.grid-container h3 {
+  font-size: 3rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-color, #2e283f);
+  letter-spacing: 0.5px;
+}
+
+.cart-container h3 {
+font-size: 3rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  color: var(--text-color, #2e283f);
+  letter-spacing: 0.5px;
+}
+
+
+#drinks-asterisk svg,
+#snacks-asterisk svg,
+#cart-asterisk svg {
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  position: relative;
+  margin-left: 0;
+  transform: translate(-12px, -17px);
+}
+
+/*=====================*/
+/* Color Block Backgrounds (with fixed color logic) */
+/*=====================*/
+.color-block.brown {
+  background: #a15644;
+  --text-color: #cac0a9;
+  color: var(--text-color);
+}
+
+.color-block.purple {
+  background: #6e6982;
+  --text-color: #d8bebc;
+  color: var(--text-color);
+}
+
+.color-block.darkpurple {
+  background: #2e283f;
+  --text-color: #e0c4bf;
+  color: var(--text-color);
+}
+
+.color-block.teal {
+  background: #556f7c;
+  --text-color: #ecac5d;
+  color: var(--text-color);
+}
+
+.color-block.orange {
+  background: #f39063;
+  --text-color: black;
+  color: var(--text-color);
+}
