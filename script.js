@@ -81,10 +81,10 @@ function handleColorBlockSelection(container, selectedColor) {
 document.addEventListener("DOMContentLoaded", function() {
   // Ensure asterisks are injected into header and section asterisk spans
   function injectHeaderAndSectionAsterisks() {
-    var headerAsterisk = document.getElementById("header-asterisk-wrapper");
-    if (headerAsterisk) {
+    var settingsAsterisk = document.getElementById("settings-asterisk");
+    if (settingsAsterisk) {
       var rand = Math.floor(Math.random() * asteriskSVGs.length);
-      headerAsterisk.innerHTML = asteriskSVGs[rand];
+      settingsAsterisk.innerHTML = asteriskSVGs[rand];
     }
     var drinksAsterisk = document.getElementById("drinks-asterisk");
     if (drinksAsterisk) {
@@ -418,7 +418,7 @@ document.querySelectorAll(".invert-btn").forEach((button) => {
 
 document.querySelectorAll(".invert-btn").forEach((button) => {
   button.addEventListener("click", () => {
-    const container = button.closest(".grid-container, .cart-container");
+    const container = button.closest(".grid-container, ,settings-container, .cart-container");
     if (!container) return;
 
     // Detect current theme
@@ -479,7 +479,7 @@ function updateCartActionButtonColors() {
   if (!theme) return;
 
   const buttons = document.querySelectorAll(
-    ".cart-action-btn, .cart-qty-btn, .remove-btn"
+    ".cart-action-btn, .cart-qty-btn, .remove-btn, .clear-crt-btn"
   );
 
 buttons.forEach((btn) => {
@@ -513,7 +513,7 @@ document.querySelectorAll('#cart-container .color-block').forEach(function(block
 function initializeInvertButtons() {
   document.querySelectorAll(".invert-btn").forEach((button) => {
     const container = button.closest(
-      ".grid-container, .cart-container, .instructions-container",
+      ".grid-container, .settings-container, .cart-container, .instructions-container",
     );
     const currentClass = Array.from(container.classList).find((cls) =>
       COLOURS.some((c) => c.name === cls),
@@ -625,6 +625,7 @@ function applyBackgroundsToAllSections() {
   injectSectionBackground("drinks", sharedIndex);
   injectSectionBackground("snacks", sharedIndex);
   injectSectionBackground("cart", sharedIndex);
+  injectSectionBackground("settings", sharedIndex);
 }
 
 // Call on page load
@@ -637,7 +638,7 @@ applyBackgroundsToAllSections();
 
 document.addEventListener("DOMContentLoaded", () => {
   // Inject asterisks into header titles
-  ["drinks-asterisk", "snacks-asterisk", "cart-asterisk"].forEach(id => {
+  ["drinks-asterisk", "snacks-asterisk", "cart-asterisk", "settings-asterisk"].forEach(id => {
     const span = document.getElementById(id);
     if (span) {
       const rand = Math.floor(Math.random() * asteriskSVGs.length);
@@ -673,7 +674,7 @@ function setupCartButtonListeners() {
 
   document.querySelectorAll(".invert-btn").forEach(button => {
     button.addEventListener("click", () => {
-      const container = button.closest(".grid-container, .cart-container");
+      const container = button.closest(".grid-container, .cart-container, .settings-container");
       if (!container) return;
 
       const currentClass = [...container.classList].find(cls =>
