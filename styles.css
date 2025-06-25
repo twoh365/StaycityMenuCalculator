@@ -58,7 +58,8 @@ body {
 
 .bg-asterisk-snacks, 
 .bg-asterisk-cart,
-.bg-asterisk-drinks {
+.bg-asterisk-drinks,
+.bg-asterisk-settings {
   animation: rotateAsterisk 20s linear infinite;
   transform-origin: center;
 }
@@ -80,37 +81,47 @@ body {
 .bg-asterisk-drinks {
   width: 400px;
   height: 370px;
-  top: 270px;
-  left: 135px;
+  top: 55%;
+  left: 35%;
 }
 
 .bg-asterisk-snacks {
   width: 400px;
-  height: 370px;
-  top: 270px;
-  left: -215px;
+  height: 400px;
+  top: 55%;
+  left: -70%;
 }
 
 .bg-asterisk-cart {
   width: 400px;
-  height: 370px;
-  top: -200px;
-  left: 130px;
+  height: 400px;
+  top: -55%;
+  left: 35%;
 }
+
+.bg-asterisk-settings {
+  width: 400px;
+  height: 400px;
+  top: -55%;
+  left: -70%;
+}
+
+
 
 /*=====================*/
 /* Section Card Styling */
 /*=====================*/
 .grid-container,
-.cart-container {
+.cart-container,
+.settings-container {
   background: var(--bg-color, var(--color-card-bg));
   color: var(--text-color, var(--color-text));
-  padding: 20px;
+  padding: 10px;
   border-radius: var(--radius);
   box-shadow: var(--color-card-shadow);
   display: flex;
   flex-direction: column;
-  min-height: 320px;
+  min-height: 400px;
   position: relative;
   overflow: hidden;
   outline: 4px solid var(--color-outline);
@@ -121,15 +132,7 @@ body {
   min-width: 0;
 }
 
-.grid-container:hover,
-.cart-container:hover {
-  transform: scale(1.025);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-}
 
-.cart-container {
-  grid-column: span 2;
-}
 
 /*=====================*/
 /* Lists and Items */
@@ -281,10 +284,21 @@ font-size: 3rem;
   letter-spacing: 0.5px;
 }
 
+.settings-container h3 {
+font-size: 3rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: right;
+  color: var(--text-color, #2e283f);
+  letter-spacing: 0.5px;
+}
+
 
 #drinks-asterisk svg,
 #snacks-asterisk svg,
-#cart-asterisk svg {
+#cart-asterisk svg,
+#settings-asterisk {
   display: inline-block;
   height: 25px;
   width: 25px;
