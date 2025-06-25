@@ -418,7 +418,7 @@ document.querySelectorAll(".invert-btn").forEach((button) => {
 
 document.querySelectorAll(".invert-btn").forEach((button) => {
   button.addEventListener("click", () => {
-    const container = button.closest(".grid-container, ,settings-container, .cart-container");
+    const container = button.closest(".grid-container, settings-container, .cart-container");
     if (!container) return;
 
     // Detect current theme
