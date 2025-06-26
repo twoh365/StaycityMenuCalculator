@@ -126,21 +126,30 @@ document.addEventListener("DOMContentLoaded", function() {
 const items = [
   { name: "Coca Cola", price: 2.8, section: "drinks" },
   { name: "Coca Cola Zero", price: 2.8, section: "drinks" },
+  { name: "Diet Coke", price: 2.8, section: "drinks" },
   { name: "Fanta Orange", price: 2.8, section: "drinks" },
   { name: "Fanta Lemon", price: 2.8, section: "drinks" },
   { name: "Sprite", price: 2.8, section: "drinks" },
   { name: "Vimto", price: 2.8, section: "drinks" },
   { name: "Irn Bru", price: 2.8, section: "drinks" },
+    { name: "Lemonaid (Blood Orange)", price: 2.8, section: "drinks" },
   { name: "Diet Irn Bru", price: 2.5, section: "drinks" },
-  { name: "Red Bull", price: 2.8, section: "drinks" },
+  { name: "Red Bull", price: 3.50, section: "drinks" },
   { name: "Cano Water", price: 2.0, section: "drinks" },
   { name: "Jimmy's Iced Coffee", price: 4.5, section: "drinks" },
   { name: "Metcalfe's Popcorn", price: 2.5, section: "snacks" },
   { name: "Maltesers Treat Bag", price: 2.5, section: "snacks" },
   { name: "Fruit Pastels Treat Bag", price: 2.5, section: "snacks" },
+   { name: "Haribo Tangfastics Treat Bag", price: 2.5, section: "snacks" },
   { name: "Nobby's Nuts", price: 2.5, section: "snacks" },
   { name: "REAL Crisps", price: 1.0, section: "snacks" },
+    { name: "Pringles - Sour Cream", price: 2.50, section: "snacks" },
+      { name: "Pringles Salt N' Vinega", price: 2.50, section: "snacks" },
+        { name: "Pringles - Ready Salted", price: 2.50, section: "snacks" },
   { name: "Taylor's Crisps", price: 1.0, section: "snacks" },
+    { name: "Crunchie", price: 1.5, section: "snacks" },
+      { name: "Dairy Milk", price: 1.5, section: "snacks" },
+        { name: "Boost", price: 1.0, section: "snacks" },
 ];
 
 // =========================
@@ -154,7 +163,6 @@ const items = [
 // =========================
 let cart = [];
 
-
 function renderItems() {
   const drinksList = document.getElementById("drinks-list");
   const snacksList = document.getElementById("snacks-list");
@@ -162,30 +170,36 @@ function renderItems() {
   drinksList.innerHTML = "";
   snacksList.innerHTML = "";
 
-  items.forEach(function (item) {
-    const li = document.createElement("li");
-    li.classList.add("item");
+  const renderList = (sectionList, sectionName) => {
+    const section = sectionList.closest(".grid-container");
+    const currentTheme = getThemeFromClass(section); // e.g. 'purple'
+    const invertedTheme = `${currentTheme}-inverted`;
 
-    if (item.section === "drinks" || item.section === "snacks") {
-      const wrapper = document.createElement("span");
-      wrapper.className = "item-asterisk";
-      const rand = Math.floor(Math.random() * asteriskSVGs.length);
-      wrapper.innerHTML = asteriskSVGs[rand];
-      li.appendChild(wrapper);
-    }
+    items
+      .filter(item => item.section === sectionName)
+      .forEach(item => {
+        const li = document.createElement("li");
 
-    li.appendChild(document.createTextNode(" " + item.name + " - £" + item.price.toFixed(2)));
+        // ✅ Add random asterisk span
+        const asteriskWrapper = document.createElement("span");
+        asteriskWrapper.className = "item-asterisk";
+        const rand = Math.floor(Math.random() * asteriskSVGs.length);
+        asteriskWrapper.innerHTML = asteriskSVGs[rand];
+        li.appendChild(asteriskWrapper);
 
-    if (item.section === "drinks") {
-      drinksList.appendChild(li);
-    } else if (item.section === "snacks") {
-      snacksList.appendChild(li);
-    }
+        // ✅ Create styled button
+        const button = document.createElement("button");
+        button.textContent = `${item.name} - £${item.price.toFixed(2)}`;
+        button.classList.add("item-button", invertedTheme);
+        button.onclick = () => addToCart(item);
 
-    li.addEventListener("click", function () {
-      addToCart(item);
-    });
-  });
+        li.appendChild(button);
+        sectionList.appendChild(li);
+      });
+  };
+
+  renderList(drinksList, "drinks");
+  renderList(snacksList, "snacks");
 }
 
 function addToCart(item) {
@@ -209,17 +223,17 @@ function renderCart() {
 
     const minusBtn = document.createElement("button");
     minusBtn.textContent = "−";
-   minusBtn.className = "cart-qty-btn invert-btn";
+   minusBtn.className = "cart-minus-btn";
     minusBtn.dataset.name = item.name;
 
   const plusBtn = document.createElement("button");
 plusBtn.textContent = "+";
-plusBtn.className = "cart-qty-btn invert-btn";
+plusBtn.className = "cart-plus-btn";
     plusBtn.dataset.name = item.name;
 
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "🗑 REMOVE ITEM";
- removeBtn.className = "remove-btn invert-btn";
+ removeBtn.className = "remove-btn";
     removeBtn.dataset.name = item.name;
 
     li.appendChild(minusBtn);
@@ -234,12 +248,22 @@ plusBtn.className = "cart-qty-btn invert-btn";
   document.getElementById("total").textContent = "Total: £" + total.toFixed(2);
 
   // Attach event listeners
-  document.querySelectorAll(".cart-qty-btn").forEach((btn) => {
+  document.querySelectorAll(".cart-plus-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const name = btn.dataset.name;
       btn.textContent === "+" ? increaseQuantity(name) : decreaseQuantity(name);
     });
   });
+  
+    document.querySelectorAll(".cart-minus-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const name = btn.dataset.name;
+      btn.textContent === "+" ? increaseQuantity(name) : decreaseQuantity(name);
+    });
+  });
+  
+  
+  
 
   document.querySelectorAll(".remove-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -479,7 +503,7 @@ function updateCartActionButtonColors() {
   if (!theme) return;
 
   const buttons = document.querySelectorAll(
-    ".cart-action-btn, .cart-qty-btn, .remove-btn, .clear-crt-btn"
+    ".cart-action-btn, .cart-minus-btn, .cart-plus-btn, .remove-btn, .clear-crt-btn"
   );
 
 buttons.forEach((btn) => {
@@ -729,3 +753,25 @@ function getThemeFromClass(section) {
     ["brown", "purple", "darkpurple", "teal", "orange"].includes(cls.replace("-inverted", ""))
   )?.replace("-inverted", "") || "purple";
 }
+
+
+function updateItemButtonThemes() {
+  ["drinks-list", "snacks-list"].forEach((listId) => {
+    const list = document.getElementById(listId);
+    const section = list.closest(".grid-container");
+    const baseTheme = getThemeFromClass(section);
+    const newClass = `${baseTheme}-inverted`;
+
+    list.querySelectorAll(".item-button").forEach((btn) => {
+      COLOURS.forEach((c) => btn.classList.remove(c.name));
+      btn.classList.add(newClass);
+    });
+  });
+}
+
+// Patch into theme change handlers
+document.querySelectorAll(".color-block, .invert-btn").forEach((el) =>
+  el.addEventListener("click", () => {
+    setTimeout(updateItemButtonThemes, 60);
+  })
+);
