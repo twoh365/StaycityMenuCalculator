@@ -149,7 +149,7 @@ const items = [
   { name: "Taylor's Crisps", price: 1.0, section: "snacks" },
     { name: "Crunchie", price: 1.5, section: "snacks" },
       { name: "Dairy Milk", price: 1.5, section: "snacks" },
-        { name: "Boost", price: 1.0, section: "snacks" },
+        { name: "Boost", price: 1.5, section: "snacks" },
 ];
 
 // =========================
