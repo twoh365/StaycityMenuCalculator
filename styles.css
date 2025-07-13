@@ -1,424 +1,379 @@
+/* ===================================================================
+   Staycity F&B Calculator -- Full Stylesheet
+   =================================================================== */
+
+/* == Root Variables & Font ========================================= */
 :root {
   --font-main: "NNNouvelleGroteskSTD-Normal", sans-serif;
-  --color-bg: #f5efe6;
-  --color-text: #2e283f;
-  --color-accent: #f39063;
-  --color-card-bg: #fff;
-  --color-card-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  --color-outline: #000;
-  --color-info-bg: #fff8e1;
-  --color-info-border: #f39063;
-  --color-modal-bg: #fff;
-  --color-modal-overlay: rgba(0, 0, 0, 0.5);
-  --radius: 10px;
-  --transition: 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  --color-bg: #f5efe6;             
+  --color-text: #2e283f;           
+  --color-card-bg: #fff;           
+  --color-card-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  --color-outline: #000;           
+  --radius: 10px;                  
+  --transition: 0.3s cubic-bezier(0.33,1,0.68,1);
 }
 
 @font-face {
   font-family: "NNNouvelleGroteskSTD-Normal";
   src: url("./dist/assets/fonts/nouvelle/NNNouvelleGroteskSTD-Normal.woff2") format("woff2"),
        url("./dist/assets/fonts/nouvelle/NNNouvelleGroteskSTD-Normal.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
 }
 
 body {
   font-family: var(--font-main);
   background: var(--color-bg);
-  margin: 0;
-  padding: 20px;
   color: var(--color-text);
+  padding: 20px;
 }
 
-/*=====================*/
-/* Section Layout Grid */
-/*=====================*/
+/* == Main Grid ===================================================== */
 .main-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
-  grid-auto-rows: minmax(100px, auto);
+  grid-template-columns: minmax(320px,1fr) minmax(320px,1fr);
   gap: 20px;
   max-width: 1200px;
-  padding: 10px;
-  align-items: stretch;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+@media (min-width: 1024px) { .main-grid { gap: 32px; } }
+@media (min-width: 1400px) {
+  .main-grid {
+    grid-template-columns: repeat(3, minmax(320px,1fr));
+    padding: 0 16px;
+  }
 }
 
-.hidden {
-  display: none;
-}
-
-/*=====================*/
-/* Section Background Asterisks */
-/*=====================*/
-
-
-.bg-asterisk-snacks, 
-.bg-asterisk-cart,
-.bg-asterisk-drinks,
-.bg-asterisk-settings {
-  animation: rotateAsterisk 20s linear infinite;
-  transform-origin: center;
-}
-
-@keyframes rotateAsterisk {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-
-.bg-asterisk {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.2;
-  fill: currentColor;
-}
-
-.bg-asterisk-drinks {
-  width: 400px;
-  height: 370px;
-  top: 55%;
-  left: 35%;
-}
-
-.bg-asterisk-snacks {
-  width: 400px;
-  height: 400px;
-  top: 55%;
-  left: -70%;
-}
-
-.bg-asterisk-cart {
-  width: 400px;
-  height: 400px;
-  top: 30%;
-  left: 35%;
-}
-
-.bg-asterisk-settings {
-  width: 400px;
-  height: 400px;
-  top: 30%;
-  left: -70%;
-}
-
-
-
-/*=====================*/
-/* Section Card Styling */
-/*=====================*/
+/* == Section / Card Styling ======================================== */
 .grid-container,
 .cart-container,
 .settings-container {
+  position: relative;
   background: var(--bg-color, var(--color-card-bg));
   color: var(--text-color, var(--color-text));
-  padding: 10px;
+  padding: 20px;
   border-radius: var(--radius);
   box-shadow: var(--color-card-shadow);
-  display: flex;
-  flex-direction: column;
-  min-height: 400px;
-  position: relative;
   overflow: hidden;
-  outline: 4px solid var(--color-outline);
-  height: 100%;
-  box-sizing: border-box;
-  transition: transform 0.18s var(--transition), box-shadow 0.18s var(--transition);
-  animation: popIn 0.5s var(--transition);
-  min-width: 0;
+  transition: transform 0.18s var(--transition),
+              box-shadow 0.18s var(--transition);
+}
+.grid-container:hover,
+.cart-container:hover,
+.settings-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
 }
 
+/* Allow Settings beside Cart again */
+.cart-container { /* no grid-column span */ }
 
-
-/*=====================*/
-/* Lists and Items */
-/*=====================*/
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
-  overflow-y: auto;
+/* == Background Asterisk =========================================== */
+.section-bg {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+.section-bg svg {
+  position:absolute;
+  right:-100px; bottom:-100px;
+  width:400px; height:500px;
+  opacity:.08;
+  animation: spin 60s linear infinite;
+}
+@keyframes spin {
+  from{transform:rotate(10deg);} to{transform:rotate(370deg);}
+}
+.grid-container > *, .cart-container > *, .settings-container > * {
+  position: relative; z-index:1;
 }
 
-li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  cursor: pointer;
+/* == Headings & Pop-In ============================================= */
+.grid-container h3,
+.cart-container h3,
+.settings-container h3 {
+  font-size:2rem;
+  font-weight:300;
+  text-align:center;
+  margin:0.5rem 0 1rem;
+  letter-spacing:0.5px;
 }
-
 .asterisk-img {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  display:inline-block;
+  font-size:1.2rem;
+  animation: popIn 0.5s var(--transition);
+}
+@keyframes popIn { from{opacity:0;} to{opacity:1;} }
+
+/* == Lists & Two-Column Items ====================================== */
+ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  flex-grow:1;
+  overflow-y:auto;
 }
 
-#total-price {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+/* Two columns for Drinks & Snacks */
+#drinks-list,
+#snacks-list {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px 20px;
 }
 
-/*=====================*/
-/* Buttons and Controls */
-/*=====================*/
-button,
-#modal button {
-  font-family: var(--font-main);
-  font-weight: 600;
-  border-radius: 6px;
-  border: 5px;
-  padding: 5px;
-  cursor: pointer;
-  flex-wrap: nowrap;
-  transition: background-color var(--transition);
-  user-select: none;
+/* == List Items =================================================== */
+li {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--item-bg, rgba(0,0,0,0.05));
+  color:var(--item-color, var(--color-text));
+  padding:8px 12px;
+  border-radius:6px;
+  transition:background 0.2s ease;
+}
+li:hover {
+  background:rgba(0,0,0,0.1);
 }
 
-.color-selector {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: nowrap;
+/* == Item-Buttons ================================================= */
+.item-button {
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:8px 12px;
+  border:2px solid var(--color-outline);
+  border-radius:4px;
+  background:var(--item-btn-bg, #ddd);
+  color:var(--item-btn-color, #000);
+  cursor:pointer;
+  transition:opacity .2s ease, background .2s ease;
 }
+.item-button:hover {
+  opacity:0.8;
+}
+
+/* == Inverted-Container Overrides ================================= */
+/* If the section's class ends in "-inverted", force item-buttons to flip */
+.grid-container[class$="-inverted"] .item-button,
+.cart-container[class$="-inverted"] .item-button,
+.settings-container[class$="-inverted"] .item-button {
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* == Total & Clear-Cart =========================================== */
+#total {
+  font-size:1.2rem;
+  margin-top:20px;
+}
+.clear-crt-btn,
+#clear-cart {
+  margin-left:12px;
+  padding:6px 12px;
+  font-weight:600;
+  border:2px solid var(--color-outline);
+  border-radius:4px;
+  background:var(--item-btn-bg, #ddd);
+  color:var(--item-btn-color, #000);
+  cursor:pointer;
+}
+
+/* == Colour-Picker Dots =========================================== */
 
 .color-block {
-  width: 28px;
-  height: 28px;
-  border: 3px solid #000 !important;
-  font-size: 15px;
-  cursor: pointer;
-  border-radius: 8px;
+  /* existing rules… */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color var(--transition);
-  flex-shrink: 1;
-  box-shadow: none;
-  opacity: 0.85;
-  z-index: 2;
-  color: var(--text-color); /* fallback for currentColor */
+}
+.color-block svg {
+  width: 18px;   /* or whatever size you need */
+  height: 18px;
 }
 
 
+.color-selector {
+  display:flex;
+  gap:6px;
+  margin:12px 0;
+}
+.color-block {
+  width:28px; height:28px;
+  border:3px solid var(--color-outline);
+  border-radius:8px;
+  cursor:pointer;
+  opacity:0.85;
+  transition:border-color var(--transition), opacity var(--transition);
+}
+.color-block.selected {
+  opacity:1;
+}
+
+/* Dot backgrounds */
+.color-block.brown      { background:#a15644; }
+.color-block.purple     { background:#6e6982; }
+.color-block.darkpurple { background:#2e283f; }
+.color-block.teal       { background:#556f7c; }
+.color-block.orange     { background:#f39063; }
+
+/* == Global Buttons =============================================== */
+button {
+  font-family:var(--font-main);
+  font-weight:600;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:opacity .2s ease;
+}
+button:hover {
+  opacity:0.8;
+}
+
+/* Invert-theme button */
 .invert-btn {
-  border: 3px solid #000 !important;
-  box-shadow: none;
-  height: 34px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  font-size: 11px;
-  white-space: normal;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border:2px solid var(--bg-color);
+}
+
+/* == Theme-Variable Definitions =================================== */
+.brown {
+  --bg-color:#a15644;
+  --text-color:#cac0a9;
+  --item-bg:rgba(161,86,68,0.1);
+  --item-color:#cac0a9;
+  --item-btn-bg:#a15644;
+  --item-btn-color:#cac0a9;
+}
+.brown-inverted {
+  --bg-color:#cac0a9;
+  --text-color:#a15644;
+  --item-bg:rgba(202,192,169,0.1);
+  --item-color:#a15644;
+  --item-btn-bg:#cac0a9;
+  --item-btn-color:#a15644;
+}
+
+.purple {
+  --bg-color:#6e6982;
+  --text-color:#d8bebc;
+  --item-bg:rgba(110,105,130,0.1);
+  --item-color:#d8bebc;
+  --item-btn-bg:#6e6982;
+  --item-btn-color:#d8bebc;
+}
+.purple-inverted {
+  --bg-color:#d8bebc;
+  --text-color:#6e6982;
+  --item-bg:rgba(216,190,188,0.1);
+  --item-color:#6e6982;
+  --item-btn-bg:#d8bebc;
+  --item-btn-color:#6e6982;
+}
+
+.darkpurple {
+  --bg-color:#2e283f;
+  --text-color:#e0c4bf;
+  --item-bg:rgba(46,40,63,0.1);
+  --item-color:#e0c4bf;
+  --item-btn-bg:#2e283f;
+  --item-btn-color:#e0c4bf;
+}
+.darkpurple-inverted {
+  --bg-color:#e0c4bf;
+  --text-color:#2e283f;
+  --item-bg:rgba(224,196,191,0.1);
+  --item-color:#2e283f;
+  --item-btn-bg:#e0c4bf;
+  --item-btn-color:#2e283f;
+}
+
+.teal {
+  --bg-color:#556f7c;
+  --text-color:#ecac5d;
+  --item-bg:rgba(85,111,124,0.1);
+  --item-color:#ecac5d;
+  --item-btn-bg:#556f7c;
+  --item-btn-color:#ecac5d;
+}
+.teal-inverted {
+  --bg-color:#ecac5d;
+  --text-color:#556f7c;
+  --item-bg:rgba(236,172,93,0.1);
+  --item-color:#556f7c;
+  --item-btn-bg:#ecac5d;
+  --item-btn-color:#556f7c;
+}
+
+.orange {
+  --bg-color:#f39063;
+  --text-color:black;
+  --item-bg:rgba(243,144,99,0.1);
+  --item-color:black;
+  --item-btn-bg:#f39063;
+  --item-btn-color:black;
+}
+.orange-inverted {
+  --bg-color:black;
+  --text-color:#f39063;
+  --item-bg:rgba(0,0,0,0.1);
+  --item-color:#f39063;
+  --item-btn-bg:black;
+  --item-btn-color:#f39063;
+}
+
+/* == Desktop Typography Enhancements ================================= */
+@media (min-width: 1024px) {
+  body {
+    font-size: 18px;             /* base text grows */
+  }
+  .grid-container h3,
+  .cart-container h3,
+  .settings-container h3 {
+    font-size: 2.5rem;           /* bigger section titles */
+  }
+  .item-button {
+    font-size: 1.1rem;           /* larger item labels */
+    padding: 10px 16px;
+  }
+  #total {
+    font-size: 1.4rem;           /* larger total */
+  }
+  button {
+    font-size: 1rem;             /* unify global buttons */
+    padding: 8px 14px;
+  }
+}
+
+/* == Invert Button Black Border ===================================== */
+.invert-btn {
+  /* swap out the bg-based border for the always-black outline */
+  border: 2px solid var(--color-outline) !important;
+}
+
+/* ─── Highlight & Emphasize the Total ────────────────────────────── */
+#total {
+  font-size: 1.4rem;                 /* bump up the size */
+  font-weight: 700;                  /* make it bold */
+  background: var(--item-bg);        /* same light "item" background */
+  color: var(--item-color);          /* matching text colour */
+  padding: 10px 14px;                /* some breathing room */
+  border: 2px solid var(--color-outline); /* crisp outline */
+  border-radius: 6px;
   text-align: center;
-  line-height: 1;
+  margin: 0 0 16px;                  /* space below */
 }
 
-.clear-crt-btn {
-  border: 3px solid #000 !important;
-  box-shadow: none;
-  height: 34px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  font-size: 11px;
-  white-space: normal;
-  text-align: center;
-  line-height: 1;
+/* ─── Thicker Border on Invert Button ───────────────────────────── */
+.invert-btn {
+  border: 3px solid var(--color-outline) !important;
 }
-
-.remove-btn {
-  border: 3px solid #000 !important;
-  box-shadow: none;
-  height: 40px;
-  width: 100px;
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: conten-box;
-  font-size: 11px;
-  white-space: normal;
-  text-align: center;
-  line-height: 1;  
-}
-
-.cart-plus-btn {
-    border: 3px solid #000 !important;
-  box-shadow: none;
-  height: 30px;
-  width: 30px;
-  padding: 0 8px;
-  align-items: center;
-  justify-content: left;
-  box-sizing: conten-box;
-  font-size: 11px;
-  white-space: normal;
-  text-align: center;
-  line-height: 1; 
- }
-
-
-/*=====================*/
-/* Theme Button Colors */
-/*=====================*/
-.btn-brown { background: #cac0a9; color: #a15644; }
-.btn-brown:hover { background: #b3a894; }
-
-.btn-purple { background: #d8bebc; color: #6e6982; }
-.btn-purple:hover { background: #c7aeb0; }
-
-.btn-darkpurple { background: #e0c4bf; color: #2e283f; }
-.btn-darkpurple:hover { background: #d1b3af; }
-
-.btn-teal { background: #ecac5d; color: #556f7c; }
-.btn-teal:hover { background: #e1a353; }
-
-.btn-orange { background: black; color: #f39063; }
-.btn-orange:hover { background: #222; }
-
-/*=====================*/
-/* Theme Variables */
-/*=====================*/
-.brown { --bg-color: #a15644; --text-color: #cac0a9; }
-.brown-inverted { --bg-color: #cac0a9; --text-color: #a15644; }
-
-.purple { --bg-color: #6e6982; --text-color: #d8bebc; }
-.purple-inverted { --bg-color: #d8bebc; --text-color: #6e6982; }
-
-.darkpurple { --bg-color: #2e283f; --text-color: #e0c4bf; }
-.darkpurple-inverted { --bg-color: #e0c4bf; --text-color: #2e283f; }
-
-.teal { --bg-color: #556f7c; --text-color: #ecac5d; }
-.teal-inverted { --bg-color: #ecac5d; --text-color: #556f7c; }
-
-.orange { --bg-color: #f39063; --text-color: black; }
-.orange-inverted { --bg-color: black; --text-color: #f39063; }
-
-/*=====================*/
-/* Section Titles with Asterisk */
-/*=====================*/
-.grid-container h3 {
-  font-size: 3rem;
-  font-weight: 300;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: var(--text-color, #2e283f);
-  letter-spacing: 0.5px;
-}
-
-.cart-container h3 {
-font-size: 3rem;
-  font-weight: 300;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: var(--text-color, #2e283f);
-  letter-spacing: 0.5px;
-}
-
-.settings-container h3 {
-font-size: 3rem;
-  font-weight: 300;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: var(--text-color, #2e283f);
-  letter-spacing: 0.5px;
-}
-
-
-#drinks-asterisk svg,
-#snacks-asterisk svg,
-#cart-asterisk svg,
-#settings-asterisk svg {
-  display: inline-block;
-  height: 25px;
-  width: 25px;
-  position: relative;
-  margin-left: 0;
-  transform: translate(-12px, -17px);
-}
-
-/*=====================*/
-/* Color Block Backgrounds (with fixed color logic) */
-/*=====================*/
-.color-block.brown {
-  background: #a15644;
-  --text-color: #cac0a9;
-  color: var(--text-color);
-}
-
-.color-block.purple {
-  background: #6e6982;
-  --text-color: #d8bebc;
-  color: var(--text-color);
-}
-
-.color-block.darkpurple {
-  background: #2e283f;
-  --text-color: #e0c4bf;
-  color: var(--text-color);
-}
-
-.color-block.teal {
-  background: #556f7c;
-  --text-color: #ecac5d;
-  color: var(--text-color);
-}
-
-.color-block.orange {
-  background: #f39063;
-  --text-color: black;
-  color: var(--text-color);
-}
-
-
-.cart-item-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: space-between;
-  flex-wrap: wrap; /* Optional for smaller screens */
-}
-
-.cart-minus-btn,
-.cart-plus-btn {
-  flex: 0 0 40px;
-  text-align: center;
-}
-
-.cart-item-text {
-  flex: 1;
-  min-width: 120px;
-}
-
-.remove-btn {
-  flex: 0 0 auto;
-}
-
-.item-button {
-  font-family: var(--font-main);
-  font-size: 1rem;
-  padding: 10px 16px;
-  margin-bottom: 10px;
-  border: 2px solid #000;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  text-align: left;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-/* Theme-based button styling */
-.item-button.purple-inverted { background-color: #d8bebc; color: #6e6982; }
-.item-button.teal-inverted   { background-color: #ecac5d; color: #556f7c; }
-.item-button.brown-inverted  { background-color: #cac0a9; color: #a15644; }
-.item-button.darkpurple-inverted { background-color: #e0c4bf; color: #2e283f; }
-.item-button.orange-inverted { background-color: black; color: #f39063; }
